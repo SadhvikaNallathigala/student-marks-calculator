@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Marks</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <h1>📝 Enter Marks</h1>
+        <p class="subtitle">Step 2 of 3 — Hi <strong th:text="${name}">Student</strong>,
+            enter marks for <strong th:text="${numberOfSubjects}">0</strong> subjects</p>
+
+        <form th:action="@{/calculate}" method="post">
+            <input type="hidden" name="name" th:value="${name}">
+            <input type="hidden" name="examName" th:value="${examName}">
+
+            <!-- Loop from 1 to numberOfSubjects, creating one name + one marks box each time -->
+            <div th:each="i : ${#numbers.sequence(1, numberOfSubjects)}">
+                <label th:for="'subjectName' + ${i}" th:text="'Subject ' + ${i} + ' Name'">Subject Name</label>
+                <input type="text" th:id="'subjectName' + ${i}" name="subjectNames"
+                       placeholder="e.g. Mathematics" required>
+
+                <label th:for="'subject' + ${i}" th:text="'Subject ' + ${i} + ' Marks (0-100)'">Subject Marks</label>
+                <input type="number" step="0.1" min="0" max="100"
+                       th:id="'subject' + ${i}" name="marks" required>
+            </div>
+
+            <button type="submit">Calculate Result →</button>
+        </form>
+    </div>
+</body>
+</html>

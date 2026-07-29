@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <h1>🎓 Report Card</h1>
+        <p class="subtitle">Step 3 of 3 — Result for <strong th:text="${name}">Student</strong></p>
+        <p class="subtitle" th:if="${examName != null and !examName.isEmpty()}" th:text="${examName}">Exam</p>
+
+        <table class="marks-table">
+            <thead>
+                <tr><th>Subject</th><th>Marks</th><th>Grade</th><th>Performance</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="mark, iterStat : ${marks}">
+                    <td th:text="${subjectNames[iterStat.index]}">Subject</td>
+                    <td th:text="${mark}">0</td>
+                    <td>
+                        <span class="grade-pill" th:classappend="${subjectGrades[iterStat.index] == 'F'} ? 'fail' : ''"
+                              th:text="${subjectGrades[iterStat.index]}">A</span>
+                    </td>
+                    <td>
+                        <div class="bar-track">
+                            <div class="bar-fill" th:classappend="${mark < 40} ? 'fail' : ''"
+                                 th:style="'width:' + ${mark} + '%'"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="stats">
+            <div class="stat-box">
+                <span class="stat-label">Total</span>
+                <span class="stat-value" th:text="${total}">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Average</span>
+                <span class="stat-value" th:text="${#numbers.formatDecimal(average, 1, 2)}">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">GPA (10 pt)</span>
+                <span class="stat-value" th:text="${#numbers.formatDecimal(gpa, 1, 2)}">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Division</span>
+                <span class="stat-value" th:text="${division}">-</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Subjects Passed</span>
+                <span class="stat-value" th:text="${passCount} + ' / ' + (${passCount} + ${failCount})">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Highest</span>
+                <span class="stat-value" th:text="${highestSubject} + ' (' + ${highest} + ')'">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Lowest</span>
+                <span class="stat-value" th:text="${lowestSubject} + ' (' + ${lowest} + ')'">0</span>
+            </div>
+        </div>
+
+        <div class="grade-box" th:classappend="${passing} ? 'pass' : 'fail'">
+            <p>Grade: <strong th:text="${grade}">A</strong></p>
+            <p th:text="${remark}">Remark</p>
+            <p th:text="${passing} ? '✅ PASS' : '❌ FAIL'">Status</p>
+        </div>
+
+        <a href="#" class="link-btn no-print" onclick="window.print(); return false;">🖨 Print Report</a>
+        <a href="/" class="link-btn">Calculate Another Student</a>
+    </div>
+</body>
+</html>

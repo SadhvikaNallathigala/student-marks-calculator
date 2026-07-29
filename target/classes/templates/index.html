@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Marks Calculator</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <h1>📊 Student Marks Calculator</h1>
+        <p class="subtitle">Step 1 of 3 — Student Details</p>
+
+        <form th:action="@{/generate-form}" method="post">
+            <label for="name">Student Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Ravi Kumar" required>
+
+            <label for="examName">Exam / Term Name (optional)</label>
+            <input type="text" id="examName" name="examName" placeholder="e.g. Final Term 2026">
+
+            <label for="numberOfSubjects">Number of Subjects</label>
+            <input type="number" id="numberOfSubjects" name="numberOfSubjects"
+                   min="1" max="20" placeholder="e.g. 5" required>
+
+            <button type="submit">Next →</button>
+        </form>
+    </div>
+</body>
+</html>

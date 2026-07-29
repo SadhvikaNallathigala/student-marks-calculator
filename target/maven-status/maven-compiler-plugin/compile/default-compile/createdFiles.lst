@@ -1,0 +1,7 @@
+com\example\studentmarks\StudentMarksApplication.class
+com\example\studentmarks\controller\MarksApiController.class
+com\example\studentmarks\service\MarksService.class
+com\example\studentmarks\model\MarksRequest.class
+com\example\studentmarks\controller\MarksController.class
+com\example\studentmarks\model\Student.class
+com\example\studentmarks\model\MarksResponse.class
